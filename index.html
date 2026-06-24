@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Rossi — Frontend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── VARIABILI ───────────────────────────── */
+    :root {
+      --bg:           #FAFAFA;
+      --surface:      #FFFFFF;
+      --text:         #111827;
+      --text-muted:   #6B7280;
+      --accent:       #6366F1;
+      --accent-light: #EEF2FF;
+      --border:       #E5E7EB;
+      --radius:       12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAVBAR ──────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: rgba(250,250,250,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Badge pulsante in alto */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* Titolo gigante — il cuore del design */
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.75rem;
+    }
+    .hero h1 .accent { color: var(--accent); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    /* ── BOTTONI ─────────────────────────────── */
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 2px solid var(--accent);
+    }
+    .btn-primary:hover {
+      background: #4F46E5;
+      border-color: #4F46E5;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.25);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── STRUTTURA SEZIONI ───────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── CHI SONO ────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .skills-heading {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    /* ── PROGETTI ────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(99,102,241,0.1);
+    }
+
+    .card-icon   { font-size: 2.2rem; }
+    .card-title  { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; }
+    .card-desc   { color: var(--text-muted); font-size: 0.88rem; line-height: 1.75; flex: 1; }
+
+    .tag-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .card-link {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* ── CONTATTI ────────────────────────────── */
+    .contact-box {
+      background: var(--text);
+      border-radius: calc(var(--radius) * 2);
+      padding: 4rem;
+      text-align: center;
+    }
+    .contact-box .section-label { color: #818CF8; }
+    .contact-box .section-title { color: #fff; margin-bottom: 1rem; }
+    .contact-box p { color: #9CA3AF; margin-bottom: 2.5rem; }
+
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-light {
+      background: #fff;
+      color: var(--text);
+      border: 2px solid #fff;
+    }
+    .btn-light:hover { background: #F3F4F6; transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-ghost:hover { border-color: #fff; transform: translateY(-2px); }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── ANIMAZIONI SCROLL ───────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      .hero { padding: 7rem 1.25rem 3rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .contact-box { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ▸ NAVBAR -->
+  <nav>
+    <a href="#" class="nav-logo">MR.</a>
+    <ul class="nav-links">
+      <li><a href="#chi-sono">Chi sono</a></li>
+      <li><a href="#progetti">Progetti</a></li>
+      <li><a href="#contatti">Contatti</a></li>
+    </ul>
+  </nav>
+
+  <!-- ▸ HERO -->
+  <header class="hero">
+    <div class="hero-badge"><span class="dot"></span> disponibile per opportunità</div>
+    <h1>Marco<br><span class="accent">Rossi.</span></h1>
+    <p class="hero-sub">
+      Frontend developer appassionato di interfacce pulite e codice leggibile.
+      Costruisco esperienze web con HTML, CSS e JavaScript vanilla.
+    </p>
+    <div class="btn-group">
+      <!-- ✏️ SOSTITUISCI con il tuo username GitHub -->
+      <a href="https://github.com/TUOUSERNAME" target="_blank" class="btn btn-primary">↗ Vedi GitHub</a>
+      <a href="#contatti" class="btn btn-secondary">Scrivimi</a>
+    </div>
+  </header>
+
+  <div class="divider"></div>
+
+  <!-- ▸ CHI SONO -->
+  <section id="chi-sono">
+    <div class="fade-up">
+      <p class="section-label">// chi sono</p>
+      <h2 class="section-title">Un po' di me</h2>
+    </div>
+    <div class="about-grid fade-up">
+      <div class="about-text">
+        <!-- ✏️ MODIFICA questo testo con la tua storia -->
+        <p>
+          Mi chiamo Marco, sono di Milano e ho scoperto la programmazione cercando
+          di personalizzare un sito. Da quel momento non ho più smesso di costruire cose per il web.
+        </p>
+        <p>
+          Mi concentro sul frontend perché credo che l'interfaccia sia ciò che fa
+          davvero la differenza per chi usa un'app. Ogni dettaglio conta.
+        </p>
+        <p>
+          Sto imparando costantemente: smonto UI di app che uso ogni giorno per capire
+          come funzionano — e come farle meglio.
+        </p>
+      </div>
+      <div>
+        <p class="skills-heading">// stack attuale</p>
+        <div class="skills-grid">
+          <span class="pill">HTML5</span>
+          <span class="pill">CSS3</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">Flexbox</span>
+          <span class="pill">CSS Grid</span>
+          <span class="pill">Responsive Design</span>
+          <span class="pill">Git</span>
+          <span class="pill">GitHub</span>
+          <span class="pill">VS Code</span>
+          <span class="pill">Figma (base)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ▸ PROGETTI -->
+  <section id="progetti">
+    <div class="fade-up">
+      <p class="section-label">// progetti</p>
+      <h2 class="section-title">Cosa ho costruito</h2>
+    </div>
+    <div class="projects-grid fade-up">
+
+      <a href="https://github.com/TUOUSERNAME/portfolio" target="_blank" class="card">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Portfolio Personale</div>
+        <p class="card-desc">
+          Questo sito — costruito da zero con HTML, CSS e JS puro, senza framework.
+          Design responsive con animazioni CSS e scroll reveal.
+        </p>
+        <div class="tag-group">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        </div>
+        <span class="card-link">↗ Guarda il codice</span>
+      </a>
+
+      <a href="https://github.com/TUOUSERNAME/task-manager" target="_blank" class="card">
+        <div class="card-icon">✅</div>
+        <div class="card-title">Task Manager</div>
+        <p class="card-desc">
+          App per gestire le attività quotidiane: aggiungi, completa e rimuovi task.
+          I dati rimangono salvati anche dopo aver chiuso il browser.
+        </p>
+        <div class="tag-group">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span><span class="tag">localStorage</span>
+        </div>
+        <span class="card-link">↗ Guarda il codice</span>
+      </a>
+
+      <a href="https://github.com/TUOUSERNAME/calculator" target="_blank" class="card">
+        <div class="card-icon">🧮</div>
+        <div class="card-title">Calcolatrice JS</div>
+        <p class="card-desc">
+          Calcolatrice funzionale con le 4 operazioni base, gestione degli errori
+          (divisione per zero) e supporto tastiera completo.
+        </p>
+        <div class="tag-group">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        </div>
+        <span class="card-link">↗ Guarda il codice</span>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ▸ CONTATTI -->
+  <section id="contatti">
+    <div class="contact-box fade-up">
+      <p class="section-label">// contatti</p>
+      <h2 class="section-title">Parliamoci</h2>
+      <p>Sono aperto a opportunità junior e collaborazioni. Scrivimi pure!</p>
+      <div class="contact-links">
+        <!-- ✏️ SOSTITUISCI con la tua email -->
+        <a href="mailto:tua@email.com" class="btn btn-light">✉ tua@email.com</a>
+        <a href="https://github.com/TUOUSERNAME" target="_blank" class="btn btn-ghost">↗ GitHub</a>
+        <a href="https://linkedin.com/in/TUOUSERNAME" target="_blank" class="btn btn-ghost">↗ LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ▸ FOOTER -->
+  <!-- ✏️ MODIFICA anno e nome -->
+  <footer>
+    <p>Costruito con HTML, CSS e JS puro · Marco Rossi · 2025</p>
+  </footer>
+
+  <script>
+    // Animazione comparsa elementi al scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
